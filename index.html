@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/styles.css">
+</head>
+<body>
+    <div id="score">
+        <h1 id="iscorrect">SCORE</h1>
+    </div>
+    <div id="game">
+        <h2 id="balance">$1000</h2>
+        <div id="board">
+            <div id="table">
+                <div id="top" class="side">
+                    <div class="person" id="person-dealer">
+                        <div id="dealer"></div>
+                    </div>
+                </div>
+                <div id="bottom" class="side">
+                    <div class="person" id="player">
+                        <div id="main"></div>
+                    </div>
+                    <div class="person" id="split-constainer">
+                        <div class="person" id="split"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <button id="restart">New Hand</button>
+    </div>  
+<script type="module" src="test.js"></script>
+</body>
+</html>

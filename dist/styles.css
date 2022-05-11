@@ -1,0 +1,116 @@
+body {
+  font-family: Arial;
+  background: #0c0c0c;
+  position: relative;
+}
+body #score {
+  background: rgb(18, 57, 77);
+  padding: 20px;
+  color: white;
+  width: 300px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: auto;
+  -webkit-border-radius: 13;
+  -moz-border-radius: 13;
+  border-radius: 13px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  background: #171717;
+  padding: 7px 14px 7px 14px;
+  text-decoration: none;
+  border: 1px solid rgb(43, 206, 57);
+  max-width: 200px;
+}
+button:hover {
+  background: #353933;
+  text-decoration: none;
+}
+
+#game {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: #176824;
+  width: 80%;
+  margin: auto;
+  padding: 50px 5px;
+  border-radius: 200px;
+}
+#game #balance {
+  margin: auto;
+  margin-bottom: 10px;
+  background-color: #0c0c0c;
+  color: #ffffff;
+  width: 100px;
+  padding: 5px;
+  border: 1px solid rgb(126, 0, 0);
+}
+#game #board {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#game #board #table {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+#game #board #table .side {
+  display: flex;
+  justify-content: center;
+}
+#game #board #table .side .person {
+  margin: 5px;
+}
+#game #board #table .side .person .result {
+  color: #ffffff;
+  text-align: center;
+}
+#game #board #table .side .person .hand {
+  display: flex;
+  flex-wrap: wrap;
+}
+#game #board #table .side .person .hand .total {
+  color: #ffffff;
+  height: 20px;
+  padding: 3px;
+}
+#game #board #table .side .person .hand .card {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+#game #board #table .side .person .hand .card .card-value {
+  font-size: 2rem;
+  margin: 0px;
+}
+#game #board #table .side .person .hand .card .suit {
+  object-fit: scale-down;
+  height: 50px;
+  width: 50px;
+}
+#game #board #table .side button {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+#game #result {
+  text-align: center;
+}
+#game #balance {
+  text-align: center;
+}
+
+/*# sourceMappingURL=styles.css.map */

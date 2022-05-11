@@ -1,0 +1,149 @@
+body{
+    font-family: Arial;
+    background: #0c0c0c;
+    position: relative;
+
+    #score{
+        background: rgb(18, 57, 77);
+        padding: 20px;
+        color: white;
+        width: 300px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin: auto;
+    -webkit-border-radius: 13;
+    -moz-border-radius: 13;
+    border-radius: 13px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 16px;
+    background: #171717;
+    padding: 7px 14px 7px 14px;
+    text-decoration: none;
+    border: 1px solid rgb(43, 206, 57);
+    max-width: 200px;
+  
+  &:hover {
+    background: #353933;
+    text-decoration: none;
+  }
+}
+
+#game {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background: #176824;
+    width: 80%;
+    margin: auto;
+    padding: 50px 5px;
+    border-radius: 200px;
+
+    #balance {
+        margin: auto;
+        margin-bottom: 10px;
+        background-color: #0c0c0c;
+        color: #ffffff;
+        width: 100px;
+        padding: 5px;
+        border: 1px solid rgb(126, 0, 0);
+    }
+
+    #board { 
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+
+        #table {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+
+            .side {
+                display: flex;
+                justify-content: center;
+
+                .person {
+
+                    margin: 5px;
+
+                    .result {
+                        color: #ffffff;
+                        text-align: center;
+                    }
+
+                    .hand {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        .total {
+                            
+                            color: #ffffff;
+                            height: 20px;
+                            padding: 3px;
+                        }
+
+                        .card {
+                            padding: 10px;
+                            
+                            margin: 5px;
+                            border-radius: 10px;
+                            background: #ffffff;
+
+                            .card-value {
+                                font-size: 2rem;
+                                margin: 0px;
+                            }
+
+                            .suit {
+                                object-fit: scale-down;
+                                height: 50px;
+                                width: 50px
+                            }
+
+                            
+                        }
+
+                    
+                    }
+
+                }
+
+                button {
+                    display: flex;
+                    margin: auto;
+                    justify-content: center;
+                }
+            }
+            
+        }
+    }
+
+    #result {
+        text-align: center;
+    }
+
+    #balance {
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
