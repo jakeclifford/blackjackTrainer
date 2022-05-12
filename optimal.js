@@ -1,4 +1,4 @@
-import { dealerHand } from "./test.js"
+import { dealerHand } from "./app.js"
 
 let scoreHtml = document.getElementById('iscorrect')
 

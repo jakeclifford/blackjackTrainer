@@ -1,6 +1,6 @@
 import {getCard} from "./utils.js"
 import {dealer, eventSplit,renderBalance, 
-    blackjackBalance, doubleBalance, dealerHand} from "./test.js"
+    blackjackBalance, doubleBalance, dealerHand} from "./app.js"
 import {checkOptimal} from "./optimal.js"
 
 

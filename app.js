@@ -1,193 +1,126 @@
 import {getDeck} from "./utils.js"
 import Hand from "./Hand.js"
-
-const hitButton = document.getElementById("hit")
-const standButton = document.getElementById("stand")
-const restartButton = document.getElementById("restart")
-const startGame = document.getElementById("deal-cards")
-const splitButton = document.getElementById("split")
-const testButton = document.getElementById("test")
-const splitHitButton = document.getElementById("split-hit")
-const splitStandButton = document.getElementById("split-stand")
+import {checkOptimal} from "./optimal.js"
 
 let balance = 1000
-let bet = 0
-let isSplit = false 
+let double = false
+let bet = 10
 
+balance -= 10
 let deck = getDeck()
-let dealerHand = new Hand()
-let playerHand = new Hand()
-let splitHand = new Hand()
+let dealerHand = new Hand('dealer')
+let playerHand = new Hand('main')
+let splitHand = new Hand('split')
 
-const test = () => {
-    startGame.style.display = 'none'
-    document.getElementById("board").style.display =  'flex'
-    bet = 10
-    balance -= bet
-    const first = {suit: 'Spades', number: 'A', value: 11}
-    const second = {suit: 'Spades', number: 'J', value: 10}
-
-    playerHand.heldCards = [first, second]
-    dealerHand.getExtraCard(deck)
-    playerHand.calculateTotal()
-
-    if (playerHand.heldCards[0].number == playerHand.heldCards[1].number){
-        splitButton.style.display = 'block'
-    }
-
-    if (playerHand.blackjack()){
-        standButton.style.display = 'none'
-        hitButton.style.display = 'none'
-        restartButton.style.display = 'block'
-        render()
-        return
-    } 
-
-    standButton.style.display = 'block'
-    hitButton.style.display = 'block'
-    restartButton.style.display = "none"
-    isSplit = false
-
-    console.log(playerHand)
-    render()
+const renderBalance = () => {
+    document.getElementById('balance').innerHTML = `$${balance}`
 }
+renderBalance()
 
-const dealCards = () => {
-    startGame.style.display = 'none'
-    document.getElementById("board").style.display =  'flex'
-    bet = 10
+const newHand = () => {
     balance -= bet
-    playerHand.getExtraCard(deck)
-    playerHand.getExtraCard(deck)
+    renderBalance()
+    deck = getDeck()
+    double = false
 
+    dealerHand = new Hand('dealer')
+    playerHand = new Hand('main')
+    splitHand = new Hand('split')
+
+    document.getElementById("split").style.display = 'none'
+
+    playerHand.getExtraCard(deck)
+    playerHand.getExtraCard(deck)
     dealerHand.getExtraCard(deck)
+    playerHand.finished = false
 
-    if (playerHand.blackjack()) return
-
-    if (playerHand.heldCards[0].number == playerHand.heldCards[1].number){
-        splitButton.style.display = 'block'
-    }
-
-    standButton.style.display = 'block'
-    hitButton.style.display = 'block'
-    restartButton.style.display = "none"
-    isSplit = false 
-
-    console.log(playerHand)
-    render()
+    dealerHand.render(deck)
+    playerHand.render(deck)
 }
 
 const split = () => {
+    balance -= bet
+    renderBalance()
     document.getElementById("split").style.display = 'block'
-    splitHitButton.style.display = 'block'
-    splitStandButton.style.display = 'block'
-
     splitHand.heldCards[0] = playerHand.heldCards.pop()
-    playerHand.calculateTotal()
-    splitHand.calculateTotal()
-    splitHitButton.addEventListener("click", () => addCard(splitHand, "split-total"))
-
-    document.getElementById("split-hand").innerHTML = splitHand.cardHtml()
-    document.getElementById("split-total").innerHTML = splitHand.total
-    splitButton.style.display ='block'
-    isSplit = true
-    render()
+    console.log(splitHand)
+    splitHand.calculateTotal(deck)
+    splitHand.render(deck)
+    splitHand.finished = false
+    playerHand.split = true
+    dealerHand.splitReady = false
+    playerHand.calculateTotal(deck)
+    playerHand.render(deck)
 }
 
-const addCard = (hand, display) => {
-    hand.getExtraCard(deck) 
-    if (hand.total > 21){
-        document.getElementById(display)
-            .innerHTML = `${display.total} BUST`
-        winner = "YOU LOOSE"
-        hitButton.style.display = 'none'
-        standButton.style.display = 'none'
-        restartButton.style.display = 'block'
-    }
-   render()
-}
-
-const dealerPlay = () => {
-    hitButton.style.display = 'none'
-    standButton.style.display = 'none'
-    splitHitButton.style.display = 'none'
-    splitStandButton.style.display = 'none'
-    render()
-    if (dealerHand.total <= 17){
-        if (dealerHand.total == 17 && dealerHand.soft == false) {
+const dealerPlay = (hand) => {
+    if (dealerHand.total < 17){
+        dealerHand.getExtraCard(deck)
+        if (dealerHand.total >= 17) {
+            isWinner(hand, dealerHand, deck)
+            dealerHand.render(deck)
             return
         }
-        dealerHand.getExtraCard(deck)
-        if (dealerHand.total > 17) {
-           
-        }
         setTimeout(() => {
-            dealerPlay() 
-        }, 1000)
+            dealerPlay(hand) 
+        }, 700)
     } else {
-        
+        isWinner(hand, dealerHand, deck)
     } 
 }
 
-const announceWinner = () => {
-    playerHand.isWinner(dealerHand)
-    standButton.style.display = 'none'
-    restartButton.style.display = 'block'
-    render()
-}
+const isWinner = (hand, dealer, deck) => {
+    if (hand.total > 21){
+        hand.total = `${dealer.total} BUST`
+        hand.result = "YOU WIN"
+        double ? balance += bet * 4 : balance += bet * 2
 
-const restart = () => {
-    hitButton.style.display = 'block'
-    standButton.style.display = 'block'
-    splitHitButton.style.display = 'none'
-    splitStandButton.style.display = 'none'
-    document.getElementById("split").style.display = 'none'
-    winner = ""
-
-    deck = getDeck()
-    dealerHand.clearDeck()
-    playerHand.clearDeck()
-    console.log(isSplit)
-    if (isSplit) {
-        splitHand.clearDeck()
-        isSplit = false 
-    } 
-
-    document.getElementById("split-hand").innerHTML = ''
-    document.getElementById("split-total").innerHTML = ''
-
-    dealCards()
-}
-
-hitButton.addEventListener("click", () => addCard(playerHand, "player-total"))
-standButton.addEventListener("click", dealerPlay)
-restartButton.addEventListener("click", restart)
-startGame.addEventListener("click", dealCards)
-splitButton.addEventListener("click", split)
-testButton.addEventListener("click", test)
-
-
-
-const render = () => {
-    playerHand.handHTML()
-
-    document.getElementById("dealer-hand").innerHTML = dealerHand.cardHtml()
-    document.getElementById("dealer-total").innerHTML = dealerHand.total
-
-    if (isSplit) {
-        document.getElementById("split-hand").innerHTML = splitHand.cardHtml()
-        document.getElementById("split-total").innerHTML = splitHand.total
     }
-    
-    document.getElementById("balance").innerHTML =  `$${balance}`
+    else if (dealer.total == hand.total){
+        hand.result = "DRAW"
+        balance += bet
+    }
+    else if (dealer.total > hand.total){
+        hand.result = "DEALER WINS"
+    }
+    else {
+        hand.result = "YOU WIN"
+        double ? balance += bet * 4 : balance += bet * 2
+    }
+    hand.render(deck)
+    renderBalance()
 }
 
-document.getElementById("board").style.display =  'none'
-standButton.style.display = 'none'
-hitButton.style.display = 'none'
-restartButton.style.display = 'none'
-splitButton.style.display = 'none'
-splitHitButton.style.display = 'none'
-splitStandButton.style.display = 'none'
+const dealer = () => {
+    if (splitHand.finished == false || playerHand.finished == false) return
+    dealerPlay(playerHand)
+    if (splitHand.finished) {
+        dealerPlay(splitHand)
+    }
+}
+
+const eventSplit = () => {
+    document.getElementById(`split-button`)
+    .addEventListener("click", () => {
+        checkOptimal(dealerHand, playerHand, 'S')
+        split()
+    })
+}
+
+const blackjackBalance = () => balance += bet * 2
+
+const doubleBalance = () => {
+    balance -= bet
+    double = true 
+}
 
 
+playerHand.getExtraCard(deck)
+playerHand.getExtraCard(deck)
+dealerHand.getExtraCard(deck)
+
+document.getElementById('restart').addEventListener("click", newHand)
+
+
+export {dealer, eventSplit, blackjackBalance, 
+    doubleBalance, renderBalance, dealerHand}
