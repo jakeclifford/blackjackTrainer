@@ -12,6 +12,12 @@ let dealerHand = new Hand('dealer')
 let playerHand = new Hand('main')
 let splitHand = new Hand('split')
 
+document.getElementById('hideOverlay').addEventListener("click", () => {
+    document.getElementById('overlay').style.display = "none"
+    document.getElementById('score').style.display = "block"
+    document.getElementById('game').style.display = "flex"
+})
+
 const renderBalance = () => {
     document.getElementById('balance').innerHTML = `$${balance}`
 }

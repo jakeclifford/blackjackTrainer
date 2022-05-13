@@ -1,11 +1,35 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 body {
   font-family: Arial;
   background-image: url("../images/table.png");
   position: relative;
-  background-size: cover;
+  background-size: 100vw 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+body #overlay {
+  width: 500px;
+  position: relative;
+  margin: auto;
+  top: 25vh;
+  left: 0;
+  bottom: 25vh;
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+body #overlay p {
+  margin-top: 0px;
+}
+body #overlay button {
+  margin: auto;
 }
 body #score {
-  background: rgb(18, 57, 77);
+  background: rgb(34, 34, 34);
   padding: 20px;
   color: white;
   width: 300px;
@@ -13,6 +37,7 @@ body #score {
   top: 0px;
   right: 0px;
   border-radius: 10px;
+  display: none;
 }
 body #score h1 {
   margin: 0px;
@@ -32,10 +57,10 @@ button {
   color: #ffffff;
   font-size: 16px;
   background: #171717;
-  padding: 7px 14px 7px 14px;
+  padding: 8px 14px 8px 14px;
   text-decoration: none;
-  border: 1px solid rgb(43, 206, 57);
   max-width: 200px;
+  font-family: "Poppins", sans-serif;
 }
 button:hover {
   background: #353933;
@@ -44,7 +69,8 @@ button:hover {
 
 #game {
   width: 100vw;
-  display: flex;
+  height: 100vh;
+  display: none;
   flex-direction: column;
   width: 80%;
   margin: auto;
@@ -92,6 +118,7 @@ button:hover {
 }
 #game #board #table .side .person .hand .card {
   padding: 10px;
+  height: 95px;
   margin: 5px;
   border-radius: 10px;
   background: #ffffff;
