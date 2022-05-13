@@ -14,6 +14,7 @@ class Hand {
         this.result = ""
         this.isButtons = false
         this.split = false
+        this.dealer = false
     }
 
     /* 
@@ -30,7 +31,7 @@ class Hand {
             if (this.isButtons == true){
                 document.getElementById(`${this.name}-buttons`).style.display = 'none'
             } 
-            this.result = "Dealer Wins"
+            if (this.dealer == false){this.result = "Dealer Wins"}
             this.finished = true
             this.isButtons = false
         }

@@ -134,7 +134,7 @@ button:hover {
 }
 #game #board #table .side button {
   display: flex;
-  margin: auto;
+  margin: 0 auto;
   justify-content: center;
 }
 #game #result {

@@ -38,6 +38,7 @@ const newHand = () => {
     playerHand.getExtraCard(deck)
     playerHand.getExtraCard(deck)
     dealerHand.getExtraCard(deck)
+    dealerHand.dealer = true
     playerHand.finished = false
 
     dealerHand.render(deck)
@@ -86,7 +87,7 @@ const isWinner = (hand, dealer, deck) => {
         hand.result = "DRAW"
         balance += bet
     }
-    else if (dealer.total > hand.total){
+    else if (dealer.total > hand.total && dealer.total <= 22){
         hand.result = "DEALER WINS"
     }
     else {
