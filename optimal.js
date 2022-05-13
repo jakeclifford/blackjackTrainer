@@ -41,17 +41,22 @@ const splitOptimal = [null, null,
     ['N', 'N', 'N', 'N', 'N', 'N', 'Y', 'N', 'N', 'Y'],
 ]
 
+let score = 0
+let moves = 0
+
 const checkOptimal = (dealerHand, playerHand, button) => {
+    moves += 1
     console.log(playerHand)
     if (playerHand.heldCards.length > 1 
         && playerHand.heldCards[0].number 
         == playerHand.heldCards[1].number){
         const shouldSplit = splitCheck(dealerHand, playerHand)
         if (button == 'S'){
-            if (shouldSplit == 'N') return scoreHtml.innerHTML = 'Incorrect'
-            scoreHtml.innerHTML = 'Correct'
+            if (shouldSplit == 'N') return scoreHtml.innerHTML = `Incorrect ${score}/${moves}`
+            score += 1
+            scoreHtml.innerHTML = `Correct ${score}/${moves}`
         } else {
-            if (shouldSplit == 'Y') return scoreHtml.innerHTML = 'Incorrect'
+            if (shouldSplit == 'Y') return scoreHtml.innerHTML = `Incorrect ${score}/${moves}`
         }
     }
 
@@ -66,9 +71,10 @@ const checkOptimal = (dealerHand, playerHand, button) => {
     }
     
     if (whichMove == button){
-        scoreHtml.innerHTML = 'Correct'
+        score += 1
+        scoreHtml.innerHTML = `Correct ${score}/${moves}` 
     } else {
-        scoreHtml.innerHTML = 'Incorrect'
+        scoreHtml.innerHTML = `Incorrect ${score}/${moves}`
     }
 }
 

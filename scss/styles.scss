@@ -1,7 +1,9 @@
 body{
     font-family: Arial;
-    background: #0c0c0c;
+    background-image: url("/images/table.png");
     position: relative;
+    background-size: cover;
+
 
     #score{
         background: rgb(18, 57, 77);
@@ -11,6 +13,11 @@ body{
         position: absolute;
         top: 0px;
         right: 0px;
+        border-radius: 10px;
+
+        h1{
+            margin: 0px;
+        }
     }
 }
 
@@ -43,7 +50,6 @@ button {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background: #176824;
     width: 80%;
     margin: auto;
     padding: 50px 5px;
