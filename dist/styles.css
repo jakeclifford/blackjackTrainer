@@ -8,10 +8,12 @@ body {
   position: relative;
   background-size: 100vw 100vh;
   max-height: 100vh;
+  max-width: 100vw;
   overflow: hidden;
 }
 body #overlay {
   width: 500px;
+  max-width: 100%;
   position: relative;
   margin: auto;
   top: 25vh;
@@ -27,6 +29,9 @@ body #overlay p {
 }
 body #overlay button {
   margin: auto;
+}
+body #overlay img {
+  max-width: 100%;
 }
 body #score {
   background: rgb(34, 34, 34);
